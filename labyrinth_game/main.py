@@ -6,7 +6,6 @@ from labyrinth_game.utils import describe_current_room
 
 def main():
     """Main function of the labyrinth game."""
-    # print("Первая попытка запустить проект!")
     game_state = {
         'player_inventory': [],  # Инвентарь игрока
         'current_room': 'entrance',  # Текущая комната

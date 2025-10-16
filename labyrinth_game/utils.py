@@ -5,10 +5,9 @@ def describe_current_room(game_state):
     """Описание текущей комнаты."""
     current_room = game_state['current_room']
     room_data = ROOMS[current_room]
-
+    # print(room_data.keys())  # ['description', 'exits', 'items', 'puzzle']
     print(f"== {current_room.upper()} ==")
     print(room_data['description'])
-    # print(room_data.keys())  # ['description', 'exits', 'items', 'puzzle']
     if room_data['items']:
         print('Заметные предметы: ', ', '.join(room_data['items']))
     if room_data['exits']:
