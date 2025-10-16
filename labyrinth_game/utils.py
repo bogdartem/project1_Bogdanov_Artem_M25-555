@@ -1,11 +1,11 @@
-from labyrinth_game.constants import ROOMS, room_data_message
+from labyrinth_game.constants import ROOMS  # , room_data_message
 
 
 def describe_current_room(game_state):
     """Описание текущей комнаты."""
-    current_room = 'hall'  # game_state['current_room']
+    current_room = game_state['current_room']
     room_data = ROOMS[current_room]
-    
+
     print(f"== {current_room.upper()} ==")
     print(room_data['description'])
     # print(room_data.keys())  # ['description', 'exits', 'items', 'puzzle']
