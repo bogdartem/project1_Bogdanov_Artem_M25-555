@@ -26,3 +26,16 @@ def move_player(game_state, direction: str):
         describe_current_room(game_state)  # Выведите описание новой комнаты.
     elif direction not in room_data['exits'].keys():
         print('Нельзя пойти в этом направлении.')
+
+
+def take_item(game_state, item_name):
+    current_room = game_state['current_room']
+    room_data = ROOMS[current_room]
+    room_items = room_data['items']
+
+    if item_name in room_items:
+        game_state['player_inventory'].append(item_name)
+        room_items.remove(item_name)
+        print('Вы подняли: ', item_name)
+    elif item_name not in room_items:
+        print('Такого предмета здесь нет.')
