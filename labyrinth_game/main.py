@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from labyrinth_game.player_actions import show_inventory
+from labyrinth_game.player_actions import move_player, show_inventory
 from labyrinth_game.utils import describe_current_room
 # import labyrinth_game.constants
 
@@ -15,6 +15,7 @@ def main():
         'steps_taken': 0  # Количество шагов
     }
     describe_current_room(game_state)
+    # move_player(game_state, 'north')
     # show_inventory(game_state)
     # Создайте цикл while, который будет работать, пока игра не окончена.
     # Внутри цикла считывайте команду от пользователя.
