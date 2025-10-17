@@ -1,6 +1,14 @@
 import math
 
-from labyrinth_game.constants import COMMANDS, ROOMS
+from labyrinth_game.constants import (
+    COMMANDS,
+    EVENT_PROBABILITY,
+    PSEUDO_RANDOM_MULTIPLIER_1,
+    PSEUDO_RANDOM_MULTIPLIER_2,
+    RANDOM_EVENT_TYPES,
+    ROOMS,
+    TRAP_FAIL_CHANCE,
+)
 
 
 def get_input(prompt='> '):
@@ -30,7 +38,6 @@ def show_help():
     """Показать доступные команды."""
     print('\nДоступные команды:')
     for command, description in COMMANDS.items():
-        # Форматирование с выравниванием
         print(f'  {command:<16} - {description}')
 
 
@@ -48,10 +55,8 @@ def solve_puzzle(game_state):
     print(f'\n{question}')
     user_answer = get_input('Ваш ответ: ').strip().lower()
 
-    # Проверка альтернативных ответов
     correct_answers = [correct_answer.lower()]
     
-    # Добавляем альтернативные варианты для числовых ответов
     if correct_answer == '10':
         correct_answers.extend(['десять', '10'])
     elif correct_answer == 'шаг шаг шаг':
@@ -67,7 +72,6 @@ def solve_puzzle(game_state):
         print('Правильно! Загадка решена.')
         room_data['puzzle'] = None
         
-        # Награда в зависимости от комнаты
         match current_room:
             case 'hall':
                 game_state['player_inventory'].append('treasure_key')
@@ -84,7 +88,6 @@ def solve_puzzle(game_state):
                 print('Карты на столе теперь выглядят понятнее.')
     else:
         print('Неверно. Попробуйте снова.')
-        # Особый эффект для trap_room
         if current_room == 'trap_room':
             print('Неправильный ответ активирует защитный механизм!')
             trigger_trap(game_state)
@@ -133,9 +136,8 @@ def pseudo_random(seed, modulo):
     """Псевдослучайный генератор на основе синуса."""
     if modulo == 0:
         return 0
-    
-    # Используем формулу для генерации псевдослучайного числа
-    x = math.sin(seed * 12.9898) * 43758.5453
+
+    x = math.sin(seed * PSEUDO_RANDOM_MULTIPLIER_1) * PSEUDO_RANDOM_MULTIPLIER_2
     fractional = x - math.floor(x)
     result = int(fractional * modulo)
     
@@ -153,8 +155,8 @@ def trigger_trap(game_state):
         lost_item = inventory.pop(item_index)
         print(f'Из вашего инвентаря выпал и потерялся: {lost_item}')
     else:
-        chance = pseudo_random(game_state['steps_taken'], 10)
-        if chance < 3:
+        chance = pseudo_random(game_state['steps_taken'], EVENT_PROBABILITY)
+        if chance < TRAP_FAIL_CHANCE:
             print('Вы не удержались и упали в пропасть! Игра окончена.')
             game_state['game_over'] = True
         else:
@@ -163,11 +165,11 @@ def trigger_trap(game_state):
 
 def random_event(game_state):
     """Случайные события при перемещении."""
-    # 10% шанс события
-    if pseudo_random(game_state['steps_taken'], 10) != 0:
+
+    if pseudo_random(game_state['steps_taken'], EVENT_PROBABILITY) != 0:
         return
     
-    event_type = pseudo_random(game_state['steps_taken'] + 1, 3)
+    event_type = pseudo_random(game_state['steps_taken'] + 1, RANDOM_EVENT_TYPES)
     current_room = game_state['current_room']
     inventory = game_state['player_inventory']
     

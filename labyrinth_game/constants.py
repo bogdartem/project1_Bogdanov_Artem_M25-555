@@ -1,4 +1,12 @@
 # labyrinth_game/constants.py
+
+EVENT_PROBABILITY = 10
+TRAP_FAIL_CHANCE = 3
+RANDOM_EVENT_TYPES = 3
+
+PSEUDO_RANDOM_MULTIPLIER_1 = 12.9898
+PSEUDO_RANDOM_MULTIPLIER_2 = 43758.5453
+
 ROOMS = {
     'entrance': {
         'description': ('Вы в темном входе лабиринта. Стены покрыты мхом. '

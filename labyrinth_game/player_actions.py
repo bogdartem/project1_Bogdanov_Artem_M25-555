@@ -20,7 +20,6 @@ def move_player(game_state, direction: str):
     
     next_room = room_data['exits'][direction]
     
-    # Проверка для treasure_room
     if next_room == 'treasure_room':
         if 'treasure_key' not in game_state['player_inventory']:
             print('Дверь заперта. Нужен ключ, чтобы пройти дальше.')
@@ -29,11 +28,9 @@ def move_player(game_state, direction: str):
             print('Вы используете найденный ключ, '
                   'чтобы открыть путь в комнату сокровищ.')
     
-    # Перемещаем игрока
     game_state['current_room'] = next_room
     game_state['steps_taken'] += 1
     
-    # Случайное событие
     from labyrinth_game.utils import random_event
     random_event(game_state)
 
