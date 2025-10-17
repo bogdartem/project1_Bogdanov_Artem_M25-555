@@ -48,7 +48,7 @@ def use_item(game_state, item_name):
     inventory = game_state['player_inventory']
 
     if item_name not in inventory:
-        print("У вас нет такого предмета.")
+        print('У вас нет такого предмета.')
         return
 
     match item_name:
@@ -57,15 +57,15 @@ def use_item(game_state, item_name):
                   'теперь можно разглядеть детали комнаты.')
 
         case 'sword':
-            print("Вы достаете меч. Чувствуется уверенность в своих силах!")
+            print('Вы достаете меч. Чувствуется уверенность в своих силах!')
 
         case 'bronze_box':
-            print("Вы открываете бронзовую шкатулку. Внутри что-то блестит...")
+            print('Вы открываете бронзовую шкатулку. Внутри что-то блестит...')
             if 'rusty_key' not in inventory:
                 inventory.append('rusty_key')
-                print("Вы нашли rusty_key и добавили его в инвентарь!")
+                print('Вы нашли rusty_key и добавили его в инвентарь!')
             else:
-                print("Шкатулка пуста.")
+                print('Шкатулка пуста.')
         case 'treasure_key':
             if game_state['current_room'] == 'treasure_room':
                 from labyrinth_game.utils import attempt_open_treasure
@@ -75,4 +75,4 @@ def use_item(game_state, item_name):
                       'Возможно, он подойдет к чему-то важному.')
 
         case _:
-            print(f"Вы не знаете, как использовать {item_name}.")
+            print(f'Вы не знаете, как использовать {item_name}.')
