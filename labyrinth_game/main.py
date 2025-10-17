@@ -1,16 +1,17 @@
 #!/usr/bin/env python3
+
 from labyrinth_game.player_actions import (
     move_player,
     show_inventory,
     take_item,
-    use_item
+    use_item,
 )
 from labyrinth_game.utils import (
     attempt_open_treasure,
     describe_current_room,
     get_input,
     show_help,
-    solve_puzzle 
+    solve_puzzle,
 )
 
 
