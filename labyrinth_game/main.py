@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+from labyrinth_game.constants import DIRECTION_ALIASES
 from labyrinth_game.player_actions import (
     move_player,
     show_inventory,
@@ -23,6 +23,9 @@ def process_command(game_state, command):
 
     action = parts[0]
     argument = parts[1] if len(parts) > 1 else None
+
+    if action in DIRECTION_ALIASES:
+        action, argument = DIRECTION_ALIASES[action].split()
 
     match action:
         case 'look':

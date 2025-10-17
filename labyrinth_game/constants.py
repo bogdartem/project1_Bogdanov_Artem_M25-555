@@ -71,3 +71,26 @@ ROOMS = {
                    '(ответ одно слово)', 'имя')
     }
 }
+
+COMMANDS = {
+    "go <direction>": "перейти в направлении (north/south/east/west)",
+    "look": "осмотреть текущую комнату",
+    "take <item>": "поднять предмет",
+    "use <item>": "использовать предмет из инвентаря",
+    "inventory": "показать инвентарь",
+    "solve": "попытаться решить загадку в комнате",
+    "quit": "выйти из игры",
+    "help": "показать это сообщение"
+}
+
+# Сокращения направлений для односложных команд
+DIRECTION_ALIASES = {
+    'north': 'go north',
+    'south': 'go south', 
+    'east': 'go east',
+    'west': 'go west',
+    'n': 'go north',
+    's': 'go south',
+    'e': 'go east',
+    'w': 'go west'
+}

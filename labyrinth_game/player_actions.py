@@ -13,11 +13,29 @@ def move_player(game_state, direction: str):
     """Пойти в направлении."""
     current_room = game_state['current_room']
     room_data = ROOMS[current_room]
-    if direction in room_data['exits'].keys():
-        game_state['current_room'] = room_data['exits'][direction]
-        game_state['steps_taken'] += 1
-    elif direction not in room_data['exits'].keys():
+    
+    if direction not in room_data['exits']:
         print('Нельзя пойти в этом направлении.')
+        return
+    
+    next_room = room_data['exits'][direction]
+    
+    # Проверка для treasure_room
+    if next_room == 'treasure_room':
+        if 'treasure_key' not in game_state['player_inventory']:
+            print('Дверь заперта. Нужен ключ, чтобы пройти дальше.')
+            return
+        else:
+            print('Вы используете найденный ключ, '
+                  'чтобы открыть путь в комнату сокровищ.')
+    
+    # Перемещаем игрока
+    game_state['current_room'] = next_room
+    game_state['steps_taken'] += 1
+    
+    # Случайное событие
+    from labyrinth_game.utils import random_event
+    random_event(game_state)
 
 
 def take_item(game_state, item_name):
@@ -25,6 +43,10 @@ def take_item(game_state, item_name):
     current_room = game_state['current_room']
     room_data = ROOMS[current_room]
     room_items = room_data['items']
+
+    if item_name == 'treasure_chest':
+        print("Вы не можете поднять сундук, он слишком тяжелый.")
+        return
 
     if item_name in room_items:
         game_state['player_inventory'].append(item_name)
@@ -64,6 +86,5 @@ def use_item(game_state, item_name):
             else:
                 print('Этот ключ выглядит особенным. '
                       'Возможно, он подойдет к чему-то важному.')
-
         case _:
             print(f'Вы не знаете, как использовать {item_name}.')
