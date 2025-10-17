@@ -9,15 +9,6 @@ def show_inventory(game_state):
         print(f'Инвентарь игрока: {', '.join(game_state['player_inventory'])}')
 
 
-def get_input(prompt='> '):
-    """Ввод команды."""
-    try:
-        return input(prompt).strip().lower()
-    except (KeyboardInterrupt, EOFError):
-        print('Выход из игры.')
-        return 'quit'
-
-
 def move_player(game_state, direction: str):
     """Пойти в направлении."""
     current_room = game_state['current_room']

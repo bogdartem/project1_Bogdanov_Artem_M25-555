@@ -1,5 +1,13 @@
 from labyrinth_game.constants import ROOMS
-from labyrinth_game.player_actions import get_input
+
+
+def get_input(prompt='> '):
+    """Ввод команды."""
+    try:
+        return input(prompt).strip().lower()
+    except (KeyboardInterrupt, EOFError):
+        print('Выход из игры.')
+        return 'quit'
 
 
 def describe_current_room(game_state):
