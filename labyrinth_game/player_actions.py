@@ -3,6 +3,7 @@ from labyrinth_game.utils import describe_current_room
 
 
 def show_inventory(game_state):
+    """Показать инвентарь."""
     if not game_state['player_inventory']:
         print('Инвентарь пуст.')
     elif game_state['player_inventory']:
@@ -10,14 +11,16 @@ def show_inventory(game_state):
 
 
 def get_input(prompt='> '):
+    """Ввод команды."""
     try:
-        pass  # дописать
+        return input(prompt).strip().lower()
     except (KeyboardInterrupt, EOFError):
         print('Выход из игры.')
         return 'quit'
 
 
 def move_player(game_state, direction: str):
+    """Пойти в направлении."""
     current_room = game_state['current_room']
     room_data = ROOMS[current_room]
     if direction in room_data['exits'].keys():
@@ -29,6 +32,7 @@ def move_player(game_state, direction: str):
 
 
 def take_item(game_state, item_name):
+    """Взять предмет."""
     current_room = game_state['current_room']
     room_data = ROOMS[current_room]
     room_items = room_data['items']
@@ -39,3 +43,30 @@ def take_item(game_state, item_name):
         print('Вы подняли: ', item_name)
     elif item_name not in room_items:
         print('Такого предмета здесь нет.')
+
+
+def use_item(game_state, item_name):
+    """Использовать предмет из инвентаря."""
+    inventory = game_state['player_inventory']
+    
+    if item_name not in inventory:
+        print("У вас нет такого предмета.")
+        return
+    
+    match item_name:
+        case 'torch':
+            print("Вы зажигаете факел. Стало светлее, теперь можно разглядеть детали комнаты.")
+        
+        case 'sword':
+            print("Вы достаете меч. Чувствуется уверенность в своих силах!")
+        
+        case 'bronze_box':
+            print("Вы открываете бронзовую шкатулку. Внутри что-то блестит...")
+            if 'rusty_key' not in inventory:
+                inventory.append('rusty_key')
+                print("Вы нашли rusty_key и добавили его в инвентарь!")
+            else:
+                print("Шкатулка пуста.")
+        
+        case _:
+            print(f"Вы не знаете, как использовать {item_name}.")
