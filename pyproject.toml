@@ -17,6 +17,7 @@ project = "labyrinth_game.main:main"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.14.0"
+asciinema = "^2.4.0"
 
 [build-system]
 requires = ["poetry-core"]
